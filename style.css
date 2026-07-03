@@ -911,26 +911,48 @@ footer {
 .prev { left: 5%; } /* Alineado con el padding del contenedor */
 .next { right: 5%; }
 
+/* Overlay para cerrar al hacer clic fuera de la imagen */
+.carousel-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+}
+
+.carousel-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* Clase que aplicaremos al hacer clic */
 .carousel-item.zoomed {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1.2); /* Escala la imagen un 20% más grande */
-    z-index: 1000; /* Asegura que esté por encima de todo */
+    width: auto;
+    max-width: min(92vw, 900px);
+    max-height: 90vh;
+    transform: translate(-50%, -50%) scale(1);
+    z-index: 1001;
     cursor: zoom-out;
-    box-shadow: 0 0 0 100vmax rgba(0,0,0,0.8); /* Oscurece el fondo automáticamente */
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
 /* Cursor para indicar que la imagen es clicable */
 .carousel-item {
     cursor: zoom-in;
-    transition: transform 0.4s ease;
+    transition: transform 0.3s ease;
 }
 
 /* Bloqueo de scroll cuando algo está ampliado */
 .carousel-container.no-scroll {
-    overflow-x: hidden; /* Esto impide que el contenedor se desplace */
-    pointer-events: none; /* Esto evita clics accidentales en otras imágenes */
+    overflow-x: hidden;
+}
+
+body.no-scroll {
+    overflow: hidden;
 }
